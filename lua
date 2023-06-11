@@ -274,14 +274,14 @@ island:addButton("Sea Of Treats", function()
 					end
   end)
 
-  local checkv4 = Status:addButton("Trạng Thái : You Have Yet To Achieve Greatness")
+  local checkv4 = Status:addButton("")
   task.spawn(function()
     while task.wait() do
 	pcall(function()
-    if game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("UpgradeRace","Check") == 0 then
-	Status:updateButton(checkv4,"Trạng Thái : Ready To Trial")
-  elseif game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("UpgradeRace","Check") == 1 then
-  Status:updateButton(checkv4,"Trạng Thái : Required Train More")
+  if game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("UpgradeRace","Check") == true then
+	Status:updateButton(checkv4,"Trạng Thái : Cant Do Trial")
+else
+  Status:updateButton(checkv4,"Trạng Thái : Ready To Trial")
 end
 end)
 end
@@ -658,6 +658,7 @@ end
 end)
 
 
+
 Fragments:addButton("Refund Stat | 2,500 Fragment", function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Refund","1")
 	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Refund","2")
@@ -666,6 +667,13 @@ end)
 Fragments:addButton("Reroll Race | 3,000 Fragment", function()
 	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","1")
 	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","2")
+end)
+
+Fragments:addButton("Buy Cyborg | 2,500 Fragment", function()
+	local args = {
+        [1] = "CyborgTrainer",
+        [2] = "Buy"}
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer(unpack(args))
 end)
 
 function topos(Pos)
@@ -953,7 +961,7 @@ spawn(function()
         pcall(function()
             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                 if _G.AutoDoughtBoss and BoneMagnet then
-                    if (v.Name == "Cookie Crafter [Lv. 2200]" or v.Name == "Cake Guard [Lv. 2225]" or v.Name == "Baking Staff [Lv. 2250]" or v.Name == "Head Baker [Lv. 2275]") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 400 then
+                    if (v.Name == "Cookie Crafter [Lv. 2200]" or v.Name == "Cake Guard [Lv. 2225]" or v.Name == "Baking Staff [Lv. 2250]" or v.Name == "Head Baker [Lv. 2275]") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 600 then
                         v.Head.CanCollide = false
                         v.HumanoidRootPart.CanCollide = false
                         v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
@@ -969,3 +977,4 @@ spawn(function()
 -- load
 venyx:SelectPage(venyx.pages[1], true)
 
+--toan bo code deu cho newbie hoc tap, chac chan 100% khong hoan hao nhung se huu dung voi newbie
